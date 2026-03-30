@@ -4,99 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr. Selmin Sevim</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: #0a0a0a;
+            background-color: #050505;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Playfair Display', serif;
         }
 
-        .container {
+        /* Arka plandaki yumuşak mouse ışığı */
+        .cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .name-container {
             position: relative;
+            z-index: 10;
             text-align: center;
-            cursor: default;
         }
 
-        .name-wrapper {
-            display: flex;
-            gap: 10px;
+        .main-title {
+            font-size: 6rem;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            text-transform: capitalize;
+            /* Sabit şık parlama */
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            transition: all 0.5s ease;
         }
 
-        .letter {
-            display: inline-block;
-            font-size: 5rem;
-            font-weight: 800;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
-            /* Glow Efekti */
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 
-                         0 0 20px rgba(255, 255, 255, 0.2);
+        /* Yazının altındaki ince dekoratif çizgi */
+        .line {
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+            margin: 10px auto;
+            transition: width 0.8s ease;
         }
 
-        /* Hover durumunda dalga ve parlama artışı */
-        .letter.active {
-            transform: translateY(-25px);
-            color: #00d4ff;
-            text-shadow: 0 0 20px #00d4ff, 
-                         0 0 40px #00d4ff, 
-                         0 0 60px #00d4ff;
+        body:hover .line {
+            width: 300px;
         }
 
         @media (max-width: 768px) {
-            .letter { font-size: 2.5rem; }
+            .main-title { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="name-wrapper" id="nameContainer">
-            </div>
+    <div class="cursor-glow" id="glow"></div>
+
+    <div class="name-container">
+        <h1 class="main-title">Doktor Selmin Sevim</h1>
+        <div class="line"></div>
     </div>
 
     <script>
-        const name = "DR. SELMİN SEVİM";
-        const container = document.getElementById('nameContainer');
-
-        // İsimdeki her harfi span içine alıyoruz (Dalga efekti için)
-        name.split('').forEach(char => {
-            const span = document.createElement('span');
-            span.textContent = char === ' ' ? '\u00A0' : char; // Boşluk kontrolü
-            span.className = 'letter';
-            container.appendChild(span);
+        const glow = document.getElementById('glow');
+        
+        // Mouse takibi (Glow efekti)
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            // Yumuşak takip animasyonu
+            requestAnimationFrame(() => {
+                glow.style.left = x + 'px';
+                glow.style.top = y + 'px';
+            });
         });
 
-        const letters = document.querySelectorAll('.letter');
-
-        // Mouse hareketine göre dalga efekti
-        document.addEventListener('mousemove', (e) => {
-            letters.forEach((letter) => {
-                const rect = letter.getBoundingClientRect();
-                const letterCenterX = rect.left + rect.width / 2;
-                const letterCenterY = rect.top + rect.height / 2;
-
-                // Mouse ile harf arasındaki mesafe
-                const distance = Math.sqrt(
-                    Math.pow(e.clientX - letterCenterX, 2) + 
-                    Math.pow(e.clientY - letterCenterY, 2)
-                );
-
-                // Eğer mouse yakınsa (100px) aktif et
-                if (distance < 100) {
-                    letter.classList.add('active');
-                } else {
-                    letter.classList.remove('active');
-                }
-            });
+        // Tıklayınca ışığın genişlemesi (Opsiyonel etkileşim)
+        document.addEventListener('mousedown', () => {
+            glow.style.width = '600px';
+            glow.style.height = '600px';
+        });
+        document.addEventListener('mouseup', () => {
+            glow.style.width = '400px';
+            glow.style.height = '400px';
         });
     </script>
 </body>
