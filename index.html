@@ -1,106 +1,29 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Selmin Sevim</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #050505;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Arka plandaki yumuşak mouse ışığı */
-        .cursor-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            transition: width 0.3s, height 0.3s;
-        }
-
-        .name-container {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-        }
-
-        .main-title {
-            font-size: 6rem;
-            color: #ffffff;
-            letter-spacing: -0.02em;
-            text-transform: capitalize;
-            /* Sabit şık parlama */
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-            transition: all 0.5s ease;
-        }
-
-        /* Yazının altındaki ince dekoratif çizgi */
-        .line {
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
-            margin: 10px auto;
-            transition: width 0.8s ease;
-        }
-
-        body:hover .line {
-            width: 300px;
-        }
-
-        @media (max-width: 768px) {
-            .main-title { font-size: 3rem; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Selmin Sevim</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    h1 {
+      color: #fff;
+      font-size: clamp(2rem, 6vw, 4.5rem);
+      font-weight: normal;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-
-    <div class="cursor-glow" id="glow"></div>
-
-    <div class="name-container">
-        <h1 class="main-title">Doktor Selmin Sevim</h1>
-        <div class="line"></div>
-    </div>
-
-    <script>
-        const glow = document.getElementById('glow');
-        
-        // Mouse takibi (Glow efekti)
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            
-            // Yumuşak takip animasyonu
-            requestAnimationFrame(() => {
-                glow.style.left = x + 'px';
-                glow.style.top = y + 'px';
-            });
-        });
-
-        // Tıklayınca ışığın genişlemesi (Opsiyonel etkileşim)
-        document.addEventListener('mousedown', () => {
-            glow.style.width = '600px';
-            glow.style.height = '600px';
-        });
-        document.addEventListener('mouseup', () => {
-            glow.style.width = '400px';
-            glow.style.height = '400px';
-        });
-    </script>
+  <h1>Doktor Selmin Sevim</h1>
 </body>
 </html>
